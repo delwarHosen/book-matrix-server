@@ -74,6 +74,7 @@ router.post("/login", async (req, res) => {
         if (!isPasswordCurrect) return res.status(400).json({ message: "Invalid cradential" });
 
         const token = generateToken(user._id);
+        
         res.status(201).json({
             token,
             user: {
