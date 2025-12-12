@@ -35,8 +35,6 @@ router.post("/", protectedRoute, async (req, res) => {
 })
 
 
-
-
 router.get("/", protectedRoute, async (req, res) => {
     try {
         const page = req.query.page || 1;
@@ -61,7 +59,6 @@ router.get("/", protectedRoute, async (req, res) => {
         res.status(500).json({ message: "internal server error" });
     }
 })
-
 
 
 
@@ -108,4 +105,6 @@ router.delete("/:id", protectedRoute, async (req, res) => {
     }
 })
 
-export default router;
+export default router
+
+
