@@ -44,7 +44,7 @@ router.get("/", protectedRoute, async (req, res) => {
         const books = await Book.find().sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit)
-        populate("user", "username profileImage")
+            .populate("user", "username profileImage")
 
         const totalBooks = await Book.countDocuments();
 
@@ -61,6 +61,33 @@ router.get("/", protectedRoute, async (req, res) => {
 })
 
 
+// router.get("/", protectedRoute, async (req, res) => {
+//     try {
+//         const page = Number(req.query.page) || 1;
+//         const limit = Number(req.query.limit) || 5;
+//         const skip = (page - 1) * limit;
+
+//         const books = await Book.find()
+//             .sort({ createdAt: -1 })
+//             .skip(skip)
+//             .limit(limit)
+//             .populate("user", "username profileImage");
+
+//         const totalBooks = await Book.countDocuments();
+
+//         res.json({
+//             books,
+//             currentPage: page,
+//             totalBooks,
+//             totalPages: Math.ceil(totalBooks / limit),
+//         });
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).json({ message: "Internal server error" });
+//     }
+// });
+
+
 
 router.get("/user", protectedRoute, async (req, res) => {
     try {
@@ -68,7 +95,7 @@ router.get("/user", protectedRoute, async (req, res) => {
         res.json(books)
 
     } catch (error) {
-        console.log("Get user books error",error.message)
+        console.log("Get user books error", error.message)
         res.status(500).json({ message: "internal server error" });
     }
 })
